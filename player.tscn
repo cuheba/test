@@ -1,0 +1,175 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="Script" path="res://player.gd" id="1"]
+[ext_resource type="Shader" path="res://ps1_object.gdshader" id="2"]
+[ext_resource type="PackedScene" path="res://lantern.tscn" id="3"]
+
+[sub_resource type="CapsuleShape3D" id="shape_body"]
+radius = 0.28
+height = 0.8
+
+[sub_resource type="CapsuleMesh" id="mesh_body"]
+radius = 0.2
+height = 0.75
+
+[sub_resource type="ShaderMaterial" id="mat_fur"]
+shader = ExtResource("2")
+shader_parameter/albedo = Color(0.7, 0.62, 0.6, 1)
+
+[sub_resource type="ShaderMaterial" id="mat_snout"]
+shader = ExtResource("2")
+shader_parameter/albedo = Color(0.92, 0.86, 0.8, 1)
+
+[sub_resource type="ShaderMaterial" id="mat_nose"]
+shader = ExtResource("2")
+shader_parameter/albedo = Color(0.15, 0.1, 0.12, 1)
+
+[sub_resource type="ShaderMaterial" id="mat_eye"]
+shader = ExtResource("2")
+shader_parameter/albedo = Color(0.7, 1, 0.75, 1)
+shader_parameter/emission_color = Color(0.7, 1, 0.75, 1)
+shader_parameter/emission_energy = 1.0
+
+[sub_resource type="SphereMesh" id="mesh_head"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="BoxMesh" id="mesh_snout"]
+size = Vector3(0.16, 0.12, 0.22)
+
+[sub_resource type="BoxMesh" id="mesh_nosetip"]
+size = Vector3(0.07, 0.05, 0.05)
+
+[sub_resource type="PrismMesh" id="mesh_ear"]
+size = Vector3(0.14, 0.22, 0.05)
+
+[sub_resource type="SphereMesh" id="mesh_eye"]
+radius = 0.035
+height = 0.07
+
+[sub_resource type="BoxMesh" id="mesh_leg"]
+size = Vector3(0.1, 0.28, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_tail"]
+size = Vector3(0.08, 0.08, 0.32)
+
+[sub_resource type="SphereShape3D" id="shape_arm"]
+radius = 0.15
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+shape = SubResource("shape_body")
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.38, 0.05)
+mesh = SubResource("mesh_body")
+material_override = SubResource("mat_fur")
+
+[node name="Head" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
+mesh = SubResource("mesh_head")
+material_override = SubResource("mat_fur")
+
+[node name="Snout" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.7)
+mesh = SubResource("mesh_snout")
+material_override = SubResource("mat_snout")
+
+[node name="NoseTip" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53, -0.82)
+mesh = SubResource("mesh_nosetip")
+material_override = SubResource("mat_nose")
+
+[node name="EarL" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11, 0.77, -0.46)
+mesh = SubResource("mesh_ear")
+material_override = SubResource("mat_fur")
+
+[node name="EarR" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11, 0.77, -0.46)
+mesh = SubResource("mesh_ear")
+material_override = SubResource("mat_fur")
+
+[node name="EyeL" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09, 0.6, -0.67)
+cast_shadow = 0
+mesh = SubResource("mesh_eye")
+material_override = SubResource("mat_eye")
+
+[node name="EyeR" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0.6, -0.67)
+cast_shadow = 0
+mesh = SubResource("mesh_eye")
+material_override = SubResource("mat_eye")
+
+[node name="EyeLight" type="OmniLight3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.72)
+visible = false
+light_color = Color(0.7, 1, 0.75, 1)
+light_energy = 0.0
+omni_range = 6.0
+
+[node name="LegFL" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13, 0.28, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Model/LegFL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14, 0)
+mesh = SubResource("mesh_leg")
+material_override = SubResource("mat_fur")
+
+[node name="LegFR" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 0.28, -0.22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Model/LegFR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14, 0)
+mesh = SubResource("mesh_leg")
+material_override = SubResource("mat_fur")
+
+[node name="LegBL" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13, 0.28, 0.3)
+
+[node name="Mesh" type="MeshInstance3D" parent="Model/LegBL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14, 0)
+mesh = SubResource("mesh_leg")
+material_override = SubResource("mat_fur")
+
+[node name="LegBR" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 0.28, 0.3)
+
+[node name="Mesh" type="MeshInstance3D" parent="Model/LegBR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14, 0)
+mesh = SubResource("mesh_leg")
+material_override = SubResource("mat_fur")
+
+[node name="Tail" type="Node3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 0.7648, 0.6442, 0, -0.6442, 0.7648, 0, 0.42, 0.4)
+
+[node name="Mesh" type="MeshInstance3D" parent="Model/Tail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+mesh = SubResource("mesh_tail")
+material_override = SubResource("mat_fur")
+
+[node name="Lantern" parent="Model" instance=ExtResource("3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.34, -0.8)
+base_energy = 2.4
+fill_energy = 0.25
+light_range = 9.0
+flicker_amount = 0.2
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+
+[node name="SpringArm" type="SpringArm3D" parent="CameraPivot"]
+shape = SubResource("shape_arm")
+spring_length = 2.6
+margin = 0.2
+
+[node name="Camera" type="Camera3D" parent="CameraPivot/SpringArm"]
+fov = 70.0
+near = 0.05
+far = 500.0

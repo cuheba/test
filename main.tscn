@@ -1,0 +1,440 @@
+[gd_scene format=3 uid="uid://dtwmhls2av4hh"]
+
+[ext_resource type="Script" uid="uid://6sainu6hsasb" path="res://main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://block.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://shifter.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://mob.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://ps1_filter.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://door.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://receptor.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://pressure_plate.tscn" id="9"]
+
+[sub_resource type="Environment" id="env_main"]
+background_mode = 1
+ambient_light_source = 1
+ambient_light_color = Color(0.45, 0.42, 0.7, 1)
+ambient_light_energy = 0.3
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.4
+glow_bloom = 0.05
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.04
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.035
+volumetric_fog_albedo = Color(0.85, 0.7, 0.6, 1)
+volumetric_fog_length = 40.0
+
+[sub_resource type="SphereShape3D" id="goal_shape"]
+radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="goal_mat"]
+albedo_color = Color(1, 0.9, 0.4, 1)
+emission_enabled = true
+emission = Color(1, 0.8, 0.3, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="goal_mesh"]
+radius = 1.0
+height = 2.0
+
+[node name="Main" type="Node3D" unique_id=1341464479]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=7886502]
+environment = SubResource("env_main")
+
+[node name="Level" type="Node3D" parent="." unique_id=907284685]
+
+[node name="Floor" parent="Level" unique_id=2128412152 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -95)
+size = Vector3(64, 1, 254)
+color = Color(0.35, 0.3, 0.28, 1)
+
+[node name="Walls" type="Node3D" parent="Level" unique_id=1848904511]
+
+[node name="WallSouth" parent="Level/Walls" unique_id=1625816923 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 30)
+size = Vector3(60, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="WallWest" parent="Level/Walls" unique_id=1756247848 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 8, -95)
+size = Vector3(1, 16, 250)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="WallEast" parent="Level/Walls" unique_id=2120770610 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 8, -95)
+size = Vector3(1, 16, 250)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="WallFar" parent="Level/Walls" unique_id=789563273 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -220)
+size = Vector3(60, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Dividers" type="Node3D" parent="Level" unique_id=693327597]
+
+[node name="Div1L" parent="Level/Dividers" unique_id=1191402389 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 8, -20)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div1R" parent="Level/Dividers" unique_id=2001143152 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 8, -20)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div2L" parent="Level/Dividers" unique_id=268549841 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 8, -70)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div2R" parent="Level/Dividers" unique_id=1078714901 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 8, -70)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div3L" parent="Level/Dividers" unique_id=842115410 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 8, -120)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div3R" parent="Level/Dividers" unique_id=1685337247 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 8, -120)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div4L" parent="Level/Dividers" unique_id=1311897 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 8, -170)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div4R" parent="Level/Dividers" unique_id=1798330075 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 8, -170)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div5L" parent="Level/Dividers" unique_id=390296532 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 8, -200)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Div5R" parent="Level/Dividers" unique_id=1627427050 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 8, -200)
+size = Vector3(23, 16, 1)
+color = Color(0.55, 0.5, 0.45, 1)
+
+[node name="Doors" type="Node3D" parent="Level" unique_id=802413912]
+
+[node name="DoorA" parent="Level/Doors" unique_id=2026755949 instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -20)
+size = Vector3(14, 16, 1)
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="DoorB" parent="Level/Doors" unique_id=298255107 instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -70)
+channel = "B"
+size = Vector3(14, 16, 1)
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="DoorC" parent="Level/Doors" unique_id=679290580 instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -120)
+channel = "C"
+size = Vector3(14, 16, 1)
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="DoorD" parent="Level/Doors" unique_id=429231563 instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -170)
+channel = "D"
+size = Vector3(14, 16, 1)
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="DoorE" parent="Level/Doors" unique_id=1276633208 instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -200)
+channel = "E"
+size = Vector3(14, 16, 1)
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="Pillars" type="Node3D" parent="Level" unique_id=1407354853]
+
+[node name="Pillar1" parent="Level/Pillars" unique_id=128792747 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 8, 14)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar2" parent="Level/Pillars" unique_id=1411929513 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 8, -4)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar3" parent="Level/Pillars" unique_id=824143157 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 8, -30)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar4" parent="Level/Pillars" unique_id=1681606431 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, -60)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar5" parent="Level/Pillars" unique_id=228909749 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 8, -110)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar6" parent="Level/Pillars" unique_id=815975750 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 8, -78)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar7" parent="Level/Pillars" unique_id=1988153638 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 8, -130)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Pillar8" parent="Level/Pillars" unique_id=197346361 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 8, -160)
+size = Vector3(6, 16, 6)
+color = Color(0.4, 0.38, 0.42, 1)
+
+[node name="Crates" type="Node3D" parent="Level" unique_id=2100230722]
+
+[node name="Crate1" parent="Level/Crates" unique_id=128476165 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, 10)
+size = Vector3(5, 4, 5)
+color = Color(0.5, 0.33, 0.25, 1)
+
+[node name="Crate2" parent="Level/Crates" unique_id=507973160 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 2, -55)
+size = Vector3(5, 4, 5)
+color = Color(0.5, 0.33, 0.25, 1)
+
+[node name="Crate3" parent="Level/Crates" unique_id=1730880407 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -85)
+size = Vector3(5, 4, 5)
+color = Color(0.5, 0.33, 0.25, 1)
+
+[node name="Crate4" parent="Level/Crates" unique_id=527586821 instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2, -140)
+size = Vector3(5, 4, 5)
+color = Color(0.5, 0.33, 0.25, 1)
+
+[node name="Shifters" type="Node3D" parent="Level" unique_id=1788867167]
+
+[node name="WestWall" parent="Level/Shifters" unique_id=704031061 instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 8, -95)
+size = Vector3(1, 16, 14)
+color = Color(0.3, 0.5, 0.6, 1)
+
+[node name="EastWall" parent="Level/Shifters" unique_id=2005083485 instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 8, -95)
+start_present = false
+size = Vector3(1, 16, 14)
+color = Color(0.7, 0.45, 0.25, 1)
+
+[node name="Crystals" type="Node3D" parent="Level" unique_id=806681866]
+
+[node name="CrystalA1" parent="Level/Crystals" unique_id=1172515641 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 3, 0)
+needed_power = 0.2
+
+[node name="CrystalA2" parent="Level/Crystals" unique_id=1430798932 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 8, -10)
+needed_power = 0.85
+
+[node name="CrystalC1" parent="Level/Crystals" unique_id=1686187141 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 4, -95)
+channel = "C"
+needed_power = 0.5
+
+[node name="CrystalC2" parent="Level/Crystals" unique_id=1698142298 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 4, -95)
+channel = "C"
+needed_power = 0.5
+
+[node name="CrystalD1" parent="Level/Crystals" unique_id=1980896809 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 5, -145)
+channel = "D"
+needed_power = 0.7
+hold_time = 8.0
+
+[node name="CrystalD2" parent="Level/Crystals" unique_id=1246482242 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.5, 5, -145)
+channel = "D"
+needed_power = 0.7
+hold_time = 8.0
+
+[node name="CrystalE" parent="Level/Crystals" unique_id=319952256 instance=ExtResource("8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 11, -198.8)
+channel = "E"
+needed_power = 1.0
+
+[node name="Plates" type="Node3D" parent="Level" unique_id=339926185]
+
+[node name="PlateB" parent="Level/Plates" unique_id=1331302311 instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -45)
+collision_layer = 0
+collision_mask = 3
+
+[node name="PlateE" parent="Level/Plates" unique_id=1262258258 instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -185)
+collision_layer = 0
+collision_mask = 3
+channel = "E"
+
+[node name="Hints" type="Node3D" parent="Level" unique_id=3478286]
+
+[node name="Hint1" type="Label3D" parent="Level/Hints" unique_id=1562779336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 12)
+pixel_size = 0.006
+billboard = 1
+modulate = Color(1, 0.9, 0.7, 1)
+outline_modulate = Color(0.06, 0.04, 0.12, 1)
+text = "Зажми ЛКМ и жди: чем дольше держишь, тем сильнее лазер.
+Бирюзовые кристаллы слабее, розовые требуют полного заряда.
+Зажги оба кристалла, чтобы открыть дверь."
+font_size = 48
+
+[node name="Hint2" type="Label3D" parent="Level/Hints" unique_id=1753925850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -26)
+pixel_size = 0.006
+billboard = 1
+modulate = Color(1, 0.9, 0.7, 1)
+outline_modulate = Color(0.06, 0.04, 0.12, 1)
+text = "Гигант идёт к тебе, только пока ты на него смотришь.
+Заставь его пройти по плите: встань так, чтобы плита
+оказалась между вами."
+font_size = 48
+
+[node name="Hint3" type="Label3D" parent="Level/Hints" unique_id=790350931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -76)
+pixel_size = 0.006
+billboard = 1
+modulate = Color(1, 0.9, 0.7, 1)
+outline_modulate = Color(0.06, 0.04, 0.12, 1)
+text = "Погаси фонарь (F), отвернувшись от стены: она исчезнет,
+а другая появится. Кристаллы горят, пока их не погасят."
+font_size = 48
+
+[node name="Hint4" type="Label3D" parent="Level/Hints" unique_id=1697780671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -126)
+pixel_size = 0.006
+billboard = 1
+modulate = Color(1, 0.9, 0.7, 1)
+outline_modulate = Color(0.06, 0.04, 0.12, 1)
+text = "Эти кристаллы гаснут через 8 секунд.
+Зажги оба быстрее."
+font_size = 48
+
+[node name="Hint5" type="Label3D" parent="Level/Hints" unique_id=1251595214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -176)
+pixel_size = 0.006
+billboard = 1
+modulate = Color(1, 0.9, 0.7, 1)
+outline_modulate = Color(0.06, 0.04, 0.12, 1)
+text = "Нужны и плита, и выстрел с полным зарядом
+в высокий розовый кристалл."
+font_size = 48
+
+[node name="Goal" type="Area3D" parent="Level" unique_id=1350642789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -212)
+
+[node name="GoalShape" type="CollisionShape3D" parent="Level/Goal" unique_id=375422372]
+shape = SubResource("goal_shape")
+
+[node name="GoalMesh" type="MeshInstance3D" parent="Level/Goal" unique_id=1052817248]
+material_override = SubResource("goal_mat")
+mesh = SubResource("goal_mesh")
+
+[node name="GoalLight" type="OmniLight3D" parent="Level/Goal" unique_id=1212247064]
+light_color = Color(1, 0.8, 0.4, 1)
+omni_range = 25.0
+
+[node name="Lights" type="Node3D" parent="." unique_id=1611418881]
+visible = false
+
+[node name="Light1" type="OmniLight3D" parent="Lights" unique_id=954860025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 10)
+light_color = Color(1, 0.7, 0.4, 1)
+light_energy = 12.623
+omni_range = 40.0
+
+[node name="Light2" type="OmniLight3D" parent="Lights" unique_id=482460875]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -45)
+light_color = Color(0.4, 0.7, 0.6, 1)
+light_energy = 0.8
+omni_range = 40.0
+
+[node name="Light3" type="OmniLight3D" parent="Lights" unique_id=1614659769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -95)
+light_color = Color(0.6, 0.5, 0.9, 1)
+light_energy = 0.8
+omni_range = 40.0
+
+[node name="Light4" type="OmniLight3D" parent="Lights" unique_id=1664566372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -145)
+light_color = Color(0.9, 0.5, 0.4, 1)
+light_energy = 0.8
+omni_range = 40.0
+
+[node name="Light5" type="OmniLight3D" parent="Lights" unique_id=719605986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -185)
+light_color = Color(0.8, 0.7, 0.5, 1)
+light_energy = 0.8
+omni_range = 30.0
+
+[node name="Mobs" type="Node3D" parent="." unique_id=1343796462]
+
+[node name="Mob1" parent="Mobs" unique_id=2052474788 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.1, -8)
+
+[node name="Mob2" parent="Mobs" unique_id=1095529724 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0.1, -45)
+
+[node name="Mob3" parent="Mobs" unique_id=829737125 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -80)
+
+[node name="Mob4a" parent="Mobs" unique_id=942810520 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.1, -135)
+
+[node name="Mob4b" parent="Mobs" unique_id=1104301912 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.1, -155)
+
+[node name="Mob4c" parent="Mobs" unique_id=751909322 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -165)
+
+[node name="Mob5" parent="Mobs" unique_id=1933144274 instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0.1, -185)
+
+[node name="Player" parent="." unique_id=1774472455 instance=ExtResource("4")]
+transform = Transform3D(0.9850871, 0, 0, 0, 0.9850871, 0, 0, 0, 0.9850871, 0, 0.1, 25)
+
+[node name="PS1Filter" parent="." unique_id=1682249687 instance=ExtResource("6")]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=897409941]
+
+[node name="Status" type="Label" parent="HUD" unique_id=275350907]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 616.0
+offset_bottom = 35.0
+text = "HP"
+
+[node name="Hint" type="Label" parent="HUD" unique_id=1045255189]
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 916.0
+offset_bottom = 90.0
+text = "WASD - ходить, мышь - камера, ЛКМ (зажать) - лазер из глаз, F - фонарь, Esc - отпустить мышь
+Гиганты идут к тебе, только пока ты на них смотришь при включённом фонаре."
+
+[node name="ChargeBar" type="ProgressBar" parent="HUD" unique_id=1567747553]
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 236.0
+offset_bottom = 114.0
+max_value = 1.0
+show_percentage = false

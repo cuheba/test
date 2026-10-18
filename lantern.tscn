@@ -1,0 +1,101 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://lantern.gd" id="1"]
+[ext_resource type="Shader" path="res://ps1_object.gdshader" id="2"]
+
+[sub_resource type="ShaderMaterial" id="mat_metal"]
+shader = ExtResource("2")
+shader_parameter/albedo = Color(0.22, 0.17, 0.14, 1)
+
+[sub_resource type="ShaderMaterial" id="mat_flame"]
+shader = ExtResource("2")
+shader_parameter/albedo = Color(1, 0.7, 0.3, 1)
+shader_parameter/emission_color = Color(1, 0.6, 0.25, 1)
+shader_parameter/emission_energy = 3.0
+
+[sub_resource type="SphereMesh" id="mesh_flame"]
+radius = 0.05
+height = 0.16
+
+[sub_resource type="CylinderMesh" id="mesh_base"]
+top_radius = 0.08
+bottom_radius = 0.09
+height = 0.04
+
+[sub_resource type="CylinderMesh" id="mesh_cap"]
+top_radius = 0.02
+bottom_radius = 0.1
+height = 0.06
+
+[sub_resource type="TorusMesh" id="mesh_handle"]
+inner_radius = 0.07
+outer_radius = 0.08
+
+[sub_resource type="BoxMesh" id="mesh_bar"]
+size = Vector3(0.015, 0.2, 0.015)
+
+[node name="Lantern" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Flame" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("mesh_flame")
+material_override = SubResource("mat_flame")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11, 0)
+cast_shadow = 0
+mesh = SubResource("mesh_base")
+material_override = SubResource("mat_metal")
+
+[node name="Cap" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+cast_shadow = 0
+mesh = SubResource("mesh_cap")
+material_override = SubResource("mat_metal")
+
+[node name="Handle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.2, 0)
+cast_shadow = 0
+mesh = SubResource("mesh_handle")
+material_override = SubResource("mat_metal")
+
+[node name="Bar1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07, 0, 0.07)
+cast_shadow = 0
+mesh = SubResource("mesh_bar")
+material_override = SubResource("mat_metal")
+
+[node name="Bar2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0, 0.07)
+cast_shadow = 0
+mesh = SubResource("mesh_bar")
+material_override = SubResource("mat_metal")
+
+[node name="Bar3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07, 0, -0.07)
+cast_shadow = 0
+mesh = SubResource("mesh_bar")
+material_override = SubResource("mat_metal")
+
+[node name="Bar4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0, -0.07)
+cast_shadow = 0
+mesh = SubResource("mesh_bar")
+material_override = SubResource("mat_metal")
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.62, 0.3, 1)
+light_energy = 3.5
+light_specular = 0.0
+shadow_enabled = true
+omni_range = 14.0
+omni_attenuation = 2.0
+shadow_blur = 3.0
+
+[node name="Fill" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.7, 0.4, 1)
+light_energy = 0.6
+light_specular = 0.0
+omni_range = 22.0
+omni_attenuation = 2.0
